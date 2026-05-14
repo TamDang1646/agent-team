@@ -45,6 +45,16 @@ echo "Installing subagents..."
 echo "Installing skills..."
 [ -d "$TMP_DIR/.claude/skills" ] && cp -r "$TMP_DIR/.claude/skills" "$CLAUDE_DIR/"
 
+# Copy utility directories
+echo "Installing core/..."
+[ -d "$TMP_DIR/core" ] && cp -r "$TMP_DIR/core" .
+
+echo "Installing project/..."
+[ -d "$TMP_DIR/project" ] && cp -r "$TMP_DIR/project" .
+
+echo "Installing templates/..."
+[ -d "$TMP_DIR/templates" ] && cp -r "$TMP_DIR/templates" .
+
 # Copy root files
 echo "Copying documentation..."
 [ ! -f "CLAUDE.md" ] && cp "$TMP_DIR/CLAUDE.md" . && echo "  CLAUDE.md"
@@ -67,6 +77,9 @@ echo "Files installed:"
 echo "  $CLAUDE_DIR/agents/         ($(ls $CLAUDE_DIR/agents 2>/dev/null | wc -l) agents)"
 echo "  $CLAUDE_DIR/subagents/      ($(ls $CLAUDE_DIR/subagents 2>/dev/null | wc -l) subagents)"
 echo "  $CLAUDE_DIR/skills/         ($(ls $CLAUDE_DIR/skills 2>/dev/null | wc -l) skills)"
+echo "  ./core/                     ($(ls ./core 2>/dev/null | wc -l) files)"
+echo "  ./project/                  ($(ls ./project 2>/dev/null | wc -l) files)"
+echo "  ./templates/                ($(ls ./templates 2>/dev/null | wc -l) files)"
 echo "  ./CLAUDE.md"
 echo "  ./AGENT_RULES.md"
 echo "  ./CODING_STANDARDS.md"
