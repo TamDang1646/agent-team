@@ -145,6 +145,19 @@ else
     fi
 fi
 
+# Copy .mcp.json to project root
+if [ "$FORCE_UPDATE" = "true" ]; then
+    if [ -f "$TMP_DIR/.mcp.json" ]; then
+        cp "$TMP_DIR/.mcp.json" ".mcp.json"
+        echo "Updated .mcp.json"
+    fi
+else
+    if [ ! -f ".mcp.json" ] && [ -f "$TMP_DIR/.mcp.json" ]; then
+        cp "$TMP_DIR/.mcp.json" ".mcp.json"
+        echo "Created .mcp.json"
+    fi
+fi
+
 echo ""
 echo "✅ Installation complete!"
 echo ""
@@ -158,6 +171,7 @@ echo "  $CLAUDE_DIR/templates/         ($(ls $CLAUDE_DIR/templates 2>/dev/null |
 [ -f "$CLAUDE_DIR/settings.local.json" ] && echo "  $CLAUDE_DIR/settings.local.json"
 [ -f "$CLAUDE_DIR/mcp-servers.local.json" ] && echo "  $CLAUDE_DIR/mcp-servers.local.json"
 [ -f "$CLAUDE_DIR/.gitignore" ] && echo "  $CLAUDE_DIR/.gitignore"
+[ -f ".mcp.json" ] && echo "  ./.mcp.json"
 echo "  ./CLAUDE.md"
 echo "  ./AGENT_RULES.md"
 echo "  ./CODING_STANDARDS.md"
