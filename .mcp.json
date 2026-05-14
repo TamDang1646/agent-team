@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "browserdocs": {
+      "command": "node",
+      "args": ["C:\\Users\\Client\\.zunef\\mcp\\browserdocs\\server.cjs"]
+    }
+  }
+}
