@@ -7,25 +7,21 @@ Guide to publish and install Agent Team System.
 ### 1. Push to GitHub
 
 ```bash
-# Create repo on GitHub (don't initialize with README)
-
-# Add remote and push
-git remote add origin git@github.com:yourorg/agent-team.git
-git branch -M main
-git push -u origin main
+git push origin main
 ```
 
-## Installation Methods
+## Installation
 
-### Method 1: One-Command Install (Recommended)
+### One-Command Install (Recommended)
 
 ```bash
-# From your project root
-curl -sL https://raw.githubusercontent.com/yourorg/agent-team/main/setup.sh | bash
+curl -sL https://raw.githubusercontent.com/TamDang1646/agent-team/main/setup.sh | bash
+```
 
-# Or with custom repo
-AGENT_TEAM_REPO=git@github.com:yourorg/agent-team.git \
-  curl -sL https://raw.githubusercontent.com/yourorg/agent-team/main/setup.sh | bash
+Or with custom repo:
+```bash
+AGENT_TEAM_REPO=https://github.com/TamDang1646/agent-team.git \
+  curl -sL https://raw.githubusercontent.com/TamDang1646/agent-team/main/setup.sh | bash
 ```
 
 This will:

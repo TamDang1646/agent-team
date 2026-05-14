@@ -1,11 +1,11 @@
 #!/bin/bash
 # One-command install Agent Team System from GitHub
 # Run this in your project directory:
-#   curl -sL https://raw.githubusercontent.com/yourorg/agent-team/main/setup.sh | bash
+#   curl -sL https://raw.githubusercontent.com/TamDang1646/agent-team/main/setup.sh | bash
 
 set -e
 
-REPO="${AGENT_TEAM_REPO:-git@github.com:yourorg/agent-team.git}"
+REPO="${AGENT_TEAM_REPO:-https://github.com/TamDang1646/agent-team.git}"
 BRANCH="${AGENT_TEAM_BRANCH:-main}"
 CLAUDE_DIR=".claude"
 
