@@ -35,7 +35,7 @@ git clone --branch "$BRANCH" --depth 1 "$REPO" "$TMP_DIR" 2>&1 | head -5 || {
     exit 1
 }
 
-# Copy all required directories
+# Copy all required directories into .claude/
 echo "Installing agents..."
 [ -d "$TMP_DIR/.claude/agents" ] && cp -r "$TMP_DIR/.claude/agents" "$CLAUDE_DIR/"
 
@@ -45,15 +45,14 @@ echo "Installing subagents..."
 echo "Installing skills..."
 [ -d "$TMP_DIR/.claude/skills" ] && cp -r "$TMP_DIR/.claude/skills" "$CLAUDE_DIR/"
 
-# Copy utility directories
 echo "Installing core/..."
-[ -d "$TMP_DIR/core" ] && cp -r "$TMP_DIR/core" .
+[ -d "$TMP_DIR/.claude/core" ] && cp -r "$TMP_DIR/.claude/core" "$CLAUDE_DIR/"
 
 echo "Installing project/..."
-[ -d "$TMP_DIR/project" ] && cp -r "$TMP_DIR/project" .
+[ -d "$TMP_DIR/.claude/project" ] && cp -r "$TMP_DIR/.claude/project" "$CLAUDE_DIR/"
 
 echo "Installing templates/..."
-[ -d "$TMP_DIR/templates" ] && cp -r "$TMP_DIR/templates" .
+[ -d "$TMP_DIR/.claude/templates" ] && cp -r "$TMP_DIR/.claude/templates" "$CLAUDE_DIR/"
 
 # Copy root files
 echo "Copying documentation..."
@@ -77,9 +76,9 @@ echo "Files installed:"
 echo "  $CLAUDE_DIR/agents/         ($(ls $CLAUDE_DIR/agents 2>/dev/null | wc -l) agents)"
 echo "  $CLAUDE_DIR/subagents/      ($(ls $CLAUDE_DIR/subagents 2>/dev/null | wc -l) subagents)"
 echo "  $CLAUDE_DIR/skills/         ($(ls $CLAUDE_DIR/skills 2>/dev/null | wc -l) skills)"
-echo "  ./core/                     ($(ls ./core 2>/dev/null | wc -l) files)"
-echo "  ./project/                  ($(ls ./project 2>/dev/null | wc -l) files)"
-echo "  ./templates/                ($(ls ./templates 2>/dev/null | wc -l) files)"
+echo "  $CLAUDE_DIR/core/           ($(ls $CLAUDE_DIR/core 2>/dev/null | wc -l) files)"
+echo "  $CLAUDE_DIR/project/        ($(ls $CLAUDE_DIR/project 2>/dev/null | wc -l) files)"
+echo "  $CLAUDE_DIR/templates/      ($(ls $CLAUDE_DIR/templates 2>/dev/null | wc -l) files)"
 echo "  ./CLAUDE.md"
 echo "  ./AGENT_RULES.md"
 echo "  ./CODING_STANDARDS.md"
