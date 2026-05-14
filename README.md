@@ -15,29 +15,44 @@ Multi-agent orchestration system for software engineering workflows. Auto-classi
 ### One-Command Install (Recommended)
 
 ```bash
-curl -sL https://raw.githubusercontent.com/TamDang1646/agent-team/main/setup.sh | bash
+curl -sL https://raw.githubusercontent.com/TamDang1646/agent-team/main/.claude/setup.sh | bash
 ```
 
 That's it! Script will:
 - Download agents, subagents, skills
 - Copy CLAUDE.md, AGENT_RULES.md, CODING_STANDARDS.md
-- Create `.claude/.env` template
+- Copy `.claude/settings.local.json` and `mcp-servers.local.json` templates
+- Create `.claude/.gitignore`
 
 ### Next Steps
 
 ```bash
-# 1. Add your API token
-echo "ANTHROPIC_AUTH_TOKEN=your_token" > .claude/.env
+# 1. Add your API token to settings.local.json
+nano .claude/settings.local.json
+# Add: "ANTHROPIC_AUTH_TOKEN": "your_token_here" in env section
 
-# 2. Test
+# 2. Run claude
 claude
+
+# 3. Try agent-team
 /agent-team "Build REST API for user authentication"
 ```
 
-### Update
+### Update System
 
+**Safe update (preserves your config):**
 ```bash
-curl -sL https://raw.githubusercontent.com/TamDang1646/agent-team/main/setup.sh | bash
+curl -sL https://raw.githubusercontent.com/TamDang1646/agent-team/main/.claude/setup.sh | bash
+```
+
+**Force update (overwrites everything including settings.local.json):**
+```bash
+FORCE_UPDATE=true curl -sL https://raw.githubusercontent.com/TamDang1646/agent-team/main/.claude/setup.sh | bash
+```
+
+**Preview before updating:**
+```bash
+DRY_RUN=true curl -sL https://raw.githubusercontent.com/TamDang1646/agent-team/main/.claude/setup.sh | bash
 ```
 
 ## Architecture
@@ -48,7 +63,12 @@ curl -sL https://raw.githubusercontent.com/TamDang1646/agent-team/main/setup.sh 
 ├── subagents/           # 10 subagents
 ├── skills/
 │   └── agent-team/
-└── .env                 # API token
+├── core/
+├── project/
+├── templates/
+├── settings.local.json  # Your config with API token
+├── mcp-servers.local.json # MCP servers config
+└── .gitignore
 
 CLAUDE.md                # Entry point
 AGENT_RULES.md           # Agent workflow rules
@@ -75,13 +95,13 @@ CODING_STANDARDS.md      # Code quality standards
 @code-reviewer "Review this PR"
 
 # CLI tools
-./core/orchestrator.sh classify "Build REST API"
-./core/orchestrator.sh agents
+.claude/core/orchestrator.sh classify "Build REST API"
+.claude/core/orchestrator.sh agents
 ```
 
 ## Documentation
 
-- [PUBLISHING.md](PUBLISHING.md) - Install guide
-- [AGENT_RULES.md](AGENT_RULES.md) - Agent workflow rules
-- [CODING_STANDARDS.md](CODING_STANDARDS.md) - Code quality standards
-- [INSTALL.md](INSTALL.md) - Detailed installation
+- [PUBLISHING.md](.claude/PUBLISHING.md) - Full install guide
+- [AGENT_RULES.md](.claude/AGENT_RULES.md) - Agent workflow rules
+- [CODING_STANDARDS.md](.claude/CODING_STANDARDS.md) - Code quality standards
+- [INSTALL.md](.claude/INSTALL.md) - Detailed installation
