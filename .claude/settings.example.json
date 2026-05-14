@@ -1,4 +1,11 @@
 {
+  "env": {
+    "ANTHROPIC_AUTH_TOKEN": "",
+    "ANTHROPIC_BASE_URL": "https://claude-api.zunef.com/v1/ai",
+    "ANTHROPIC_MODEL": "claude-opus-4-7[1m]",
+    "ANTHROPIC_CUSTOM_HEADERS": "X-ZUNEF-CLIENT: claude-code\nX-Device-Id: 9995efeeb58b46a482101e42bfe17ef1",
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
+  },
   "effortLevel": "max",
   "agent": "Lacstu",
   "enabled_agents": [
