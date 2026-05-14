@@ -30,5 +30,13 @@
     "doc-writer",
     "integration-checker"
   ],
-  "default_routing_level": "level_2"
+  "default_routing_level": "level_2",
+  "mcpServers": {
+    "browserdocs": {
+      "command": "node",
+      "args": [
+        "C:\\Users\\Client\\.zunef\\mcp\\browserdocs\\server.cjs"
+      ]
+    }
+  }
 }
