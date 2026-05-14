@@ -76,6 +76,14 @@ if [ ! -f "$CLAUDE_DIR/mcp-servers.local.json" ]; then
     fi
 fi
 
+# Copy .gitignore if not exists
+if [ ! -f "$CLAUDE_DIR/.gitignore" ]; then
+    if [ -f "$TMP_DIR/.claude/.gitignore" ]; then
+        cp "$TMP_DIR/.claude/.gitignore" "$CLAUDE_DIR/.gitignore"
+        echo "Created .claude/.gitignore"
+    fi
+fi
+
 # Create .env template
 if [ ! -f "$CLAUDE_DIR/.env" ]; then
     echo "Creating .env template..."
@@ -97,6 +105,7 @@ echo "  $CLAUDE_DIR/project/           ($(ls $CLAUDE_DIR/project 2>/dev/null | w
 echo "  $CLAUDE_DIR/templates/         ($(ls $CLAUDE_DIR/templates 2>/dev/null | wc -l | tr -d ' ') files)"
 echo "  $CLAUDE_DIR/settings.local.json"
 echo "  $CLAUDE_DIR/mcp-servers.local.json"
+echo "  $CLAUDE_DIR/.gitignore"
 echo "  $CLAUDE_DIR/.env"
 echo "  ./CLAUDE.md"
 echo "  ./AGENT_RULES.md"
