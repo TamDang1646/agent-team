@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Subagent Specification",
+  "description": "Template for defining subagent capabilities",
+  "type": "object",
+  "required": ["name", "purpose", "when_to_use", "input_contract", "output_contract", "tool_bias", "guardrails", "done_definition"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Unique subagent identifier (kebab-case)"
+    },
+    "purpose": {
+      "type": "string",
+      "description": "What this subagent does"
+    },
+    "when_to_use": {
+      "type": "string",
+      "description": "Scenarios for invoking this subagent"
+    },
+    "input_contract": {
+      "type": "string",
+      "description": "Expected input format and requirements"
+    },
+    "output_contract": {
+      "type": "string",
+      "description": "Guaranteed output format and content"
+    },
+    "tool_bias": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Preferred tools for this subagent"
+    },
+    "guardrails": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Constraints and safety limits"
+    },
+    "done_definition": {
+      "type": "string",
+      "description": "Criteria for subagent task completion"
+    }
+  }
+}

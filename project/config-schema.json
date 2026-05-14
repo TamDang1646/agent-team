@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Project Configuration",
+  "description": "Project-specific agent/subagent configuration",
+  "type": "object",
+  "properties": {
+    "enabled_agents": {
+      "type": "array",
+      "items": { "type": "string" },
+      "default": ["orchestrator-lead", "architect", "backend-engineer", "frontend-engineer", "mobile-engineer", "qa-engineer", "devops-security"],
+      "description": "Enable/disable specific agents"
+    },
+    "enabled_subagents": {
+      "type": "array",
+      "items": { "type": "string" },
+      "default": ["code-explorer", "planner", "code-reviewer", "test-runner", "log-analyst", "security-reviewer", "performance-analyst", "db-reviewer", "doc-writer", "integration-checker"],
+      "description": "Enable/disable specific subagents"
+    },
+    "default_routing_level": {
+      "type": "string",
+      "enum": ["level_0", "level_1", "level_2", "level_3"],
+      "default": "level_2",
+      "description": "Default orchestration level for this project"
+    },
+    "custom_agents_directory": {
+      "type": "string",
+      "default": "project/custom-agents",
+      "description": "Path to custom agent definitions"
+    },
+    "custom_subagents_directory": {
+      "type": "string",
+      "default": "project/custom-subagents",
+      "description": "Path to custom subagent definitions"
+    },
+    "overrides": {
+      "type": "object",
+      "description": "Override agent/subagent configurations"
+    }
+  }
+}

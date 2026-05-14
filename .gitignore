@@ -1,0 +1,37 @@
+# .gitignore
+
+# Generated Files
+node_modules/
+dist/
+build/
+*.log
+
+# Environment - API keys and secrets
+.env
+.env.local
+.env.*.local
+
+# Claude secrets - NEVER commit
+.claude/.env
+.claude/settings.local.json
+
+# Do not commit generated directories (these are created by install script)
+.claude/agents/
+.claude/subagents/
+.claude/skills/
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+npm-debug.log*

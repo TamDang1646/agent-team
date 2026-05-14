@@ -1,0 +1,27 @@
+{
+  "enabled_agents": [
+    "orchestrator-lead",
+    "architect",
+    "backend-engineer",
+    "frontend-engineer",
+    "mobile-engineer",
+    "qa-engineer",
+    "devops-security"
+  ],
+  "enabled_subagents": [
+    "code-explorer",
+    "planner",
+    "code-reviewer",
+    "test-runner",
+    "log-analyst",
+    "security-reviewer",
+    "performance-analyst",
+    "db-reviewer",
+    "doc-writer",
+    "integration-checker"
+  ],
+  "default_routing_level": "level_2",
+  "custom_agents_directory": "project/custom-agents",
+  "custom_subagents_directory": "project/custom-subagents",
+  "overrides": {}
+}

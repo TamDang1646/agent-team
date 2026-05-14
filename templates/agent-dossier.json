@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Agent Dossier",
+  "description": "Template for defining agent roles in the orchestration system",
+  "type": "object",
+  "required": ["name", "role", "mission", "ownership", "inputs", "outputs", "quality_bar", "guardrails", "done_definition"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Unique agent identifier (kebab-case)"
+    },
+    "role": {
+      "type": "string",
+      "description": "Human-readable role title"
+    },
+    "mission": {
+      "type": "string",
+      "description": "Core purpose and primary responsibility"
+    },
+    "ownership": {
+      "type": "string",
+      "description": "What this agent owns end-to-end"
+    },
+    "inputs": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Expected input sources"
+    },
+    "outputs": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Expected deliverables"
+    },
+    "quality_bar": {
+      "type": "string",
+      "description": "Quality standards for acceptance"
+    },
+    "guardrails": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Constraints and boundaries"
+    },
+    "allowed_subagents": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Subagents this agent can spawn"
+    },
+    "done_definition": {
+      "type": "string",
+      "description": "Criteria for task completion"
+    }
+  }
+}

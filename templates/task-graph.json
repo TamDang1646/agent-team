@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Task Graph",
+  "description": "Schema for task dependencies and execution order",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["task_id", "title", "objective", "owner", "inputs", "expected_output", "acceptance_criteria", "risk_level"],
+    "properties": {
+      "task_id": {
+        "type": "string",
+        "description": "Unique task identifier"
+      },
+      "title": {
+        "type": "string",
+        "description": "Short actionable title"
+      },
+      "objective": {
+        "type": "string",
+        "description": "What this task accomplishes"
+      },
+      "owner": {
+        "type": "string",
+        "description": "Agent responsible for this task"
+      },
+      "inputs": {
+        "type": "array",
+        "items": { "type": "string" },
+        "description": "Required input sources"
+      },
+      "expected_output": {
+        "type": "string",
+        "description": "Deliverable from this task"
+      },
+      "dependencies": {
+        "type": "array",
+        "items": { "type": "string" },
+        "description": "Task IDs that must complete first"
+      },
+      "acceptance_criteria": {
+        "type": "array",
+        "items": { "type": "string" },
+        "description": "Conditions for task acceptance"
+      },
+      "risk_level": {
+        "type": "string",
+        "enum": ["low", "medium", "high", "critical"],
+        "description": "Risk assessment"
+      }
+    }
+  }
+}
