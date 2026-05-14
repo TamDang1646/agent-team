@@ -15,11 +15,6 @@ build/
 .claude/.env
 .claude/settings.local.json
 
-# Do not commit generated directories (these are created by install script)
-.claude/agents/
-.claude/subagents/
-.claude/skills/
-
 # Editor
 .vscode/
 .idea/
