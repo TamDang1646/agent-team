@@ -60,6 +60,22 @@ echo "Copying documentation..."
 [ ! -f "AGENT_RULES.md" ] && cp "$TMP_DIR/AGENT_RULES.md" . && echo "  AGENT_RULES.md"
 [ ! -f "CODING_STANDARDS.md" ] && cp "$TMP_DIR/CODING_STANDARDS.md" . && echo "  CODING_STANDARDS.md"
 
+# Copy settings template if settings.local.json doesn't exist
+if [ ! -f "$CLAUDE_DIR/settings.local.json" ]; then
+    if [ -f "$TMP_DIR/.claude/settings.example.json" ]; then
+        cp "$TMP_DIR/.claude/settings.example.json" "$CLAUDE_DIR/settings.local.json"
+        echo "Created settings.local.json from template"
+    fi
+fi
+
+# Copy MCP servers template if mcp-servers.local.json doesn't exist
+if [ ! -f "$CLAUDE_DIR/mcp-servers.local.json" ]; then
+    if [ -f "$TMP_DIR/.claude/mcp-servers.example.json" ]; then
+        cp "$TMP_DIR/.claude/mcp-servers.example.json" "$CLAUDE_DIR/mcp-servers.local.json"
+        echo "Created mcp-servers.local.json from template"
+    fi
+fi
+
 # Create .env template
 if [ ! -f "$CLAUDE_DIR/.env" ]; then
     echo "Creating .env template..."
