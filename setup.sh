@@ -1,12 +1,16 @@
 #!/bin/bash
-# One-command install Agent Team System from GitHub
+# One-command install/update Agent Team System from GitHub
 # Usage:
 #   curl -sL https://raw.githubusercontent.com/TamDang1646/agent-team/main/setup.sh | bash
 #   ./setup.sh (from repo)
 #
+# Auto-detects:
+#   - Not installed → Install
+#   - Already installed → Update (preserve user configs)
+#
 # Options:
-#   FORCE_UPDATE=true  - Update existing files (preserve user configs)
-#   DRY_RUN=true       - Show what would be done without making changes
+#   FORCE_UPDATE=true  - Force update all system files
+#   DRY_RUN=true       - Preview without making changes
 
 set -e
 
@@ -16,10 +20,21 @@ CLAUDE_DIR=".claude"
 FORCE_UPDATE="${FORCE_UPDATE:-false}"
 DRY_RUN="${DRY_RUN:-false}"
 
-echo "=== Installing Agent Team System ==="
+# Auto-detect: already installed?
+if [ -d "$CLAUDE_DIR/agents" ] || [ -f "CLAUDE.md" ]; then
+    AUTO_UPDATE=true
+    echo "✅ Agent Team System detected - update mode enabled"
+else
+    AUTO_UPDATE=false
+    echo "📦 Agent Team System not found - install mode enabled"
+fi
+
+echo "=== Agent Team System ==="
 echo "Repo: $REPO@$BRANCH"
-[ "$FORCE_UPDATE" = "true" ] && echo "Mode: FORCE UPDATE (update system files, preserve configs)"
+[ "$FORCE_UPDATE" = "true" ] && echo "Mode: FORCE UPDATE (update all system files)"
+[ "$AUTO_UPDATE" = "true" ] && [ "$FORCE_UPDATE" != "true" ] && echo "Mode: AUTO UPDATE (update system files, preserve configs)"
 [ "$DRY_RUN" = "true" ] && echo "Mode: DRY RUN (no changes will be made)"
+echo ""
 
 # Create .claude directory
 mkdir -p "$CLAUDE_DIR"
@@ -37,67 +52,73 @@ git clone --branch "$BRANCH" --depth 1 "$REPO" "$TMP_DIR" 2>&1 | head -5 || {
 # Copy all required directories into .claude/
 echo "Installing agents..."
 [ -d "$TMP_DIR/.claude/agents" ] && {
-    if [ "$FORCE_UPDATE" = "true" ]; then
+    if [ "$FORCE_UPDATE" = "true" ] || [ "$AUTO_UPDATE" = "true" ]; then
         cp -r "$TMP_DIR/.claude/agents"/* "$CLAUDE_DIR/agents/" 2>/dev/null || true
         echo "  Updated agents/"
     else
         cp -rn "$TMP_DIR/.claude/agents" "$CLAUDE_DIR/" 2>/dev/null || true
+        echo "  Installed agents/"
     fi
 }
 
 echo "Installing subagents..."
 [ -d "$TMP_DIR/.claude/subagents" ] && {
-    if [ "$FORCE_UPDATE" = "true" ]; then
+    if [ "$FORCE_UPDATE" = "true" ] || [ "$AUTO_UPDATE" = "true" ]; then
         cp -r "$TMP_DIR/.claude/subagents"/* "$CLAUDE_DIR/subagents/" 2>/dev/null || true
         echo "  Updated subagents/"
     else
         cp -rn "$TMP_DIR/.claude/subagents" "$CLAUDE_DIR/" 2>/dev/null || true
+        echo "  Installed subagents/"
     fi
 }
 
 echo "Installing skills..."
 [ -d "$TMP_DIR/.claude/skills" ] && {
-    if [ "$FORCE_UPDATE" = "true" ]; then
+    if [ "$FORCE_UPDATE" = "true" ] || [ "$AUTO_UPDATE" = "true" ]; then
         cp -r "$TMP_DIR/.claude/skills"/* "$CLAUDE_DIR/skills/" 2>/dev/null || true
         echo "  Updated skills/"
     else
         cp -rn "$TMP_DIR/.claude/skills" "$CLAUDE_DIR/" 2>/dev/null || true
+        echo "  Installed skills/"
     fi
 }
 
 echo "Installing core/..."
 [ -d "$TMP_DIR/.claude/core" ] && {
-    if [ "$FORCE_UPDATE" = "true" ]; then
+    if [ "$FORCE_UPDATE" = "true" ] || [ "$AUTO_UPDATE" = "true" ]; then
         cp -r "$TMP_DIR/.claude/core"/* "$CLAUDE_DIR/core/" 2>/dev/null || true
         echo "  Updated core/"
     else
         cp -rn "$TMP_DIR/.claude/core" "$CLAUDE_DIR/" 2>/dev/null || true
+        echo "  Installed core/"
     fi
 }
 
 echo "Installing project/..."
 [ -d "$TMP_DIR/.claude/project" ] && {
-    if [ "$FORCE_UPDATE" = "true" ]; then
+    if [ "$FORCE_UPDATE" = "true" ] || [ "$AUTO_UPDATE" = "true" ]; then
         cp -r "$TMP_DIR/.claude/project"/* "$CLAUDE_DIR/project/" 2>/dev/null || true
         echo "  Updated project/"
     else
         cp -rn "$TMP_DIR/.claude/project" "$CLAUDE_DIR/" 2>/dev/null || true
+        echo "  Installed project/"
     fi
 }
 
 echo "Installing templates/..."
 [ -d "$TMP_DIR/.claude/templates" ] && {
-    if [ "$FORCE_UPDATE" = "true" ]; then
+    if [ "$FORCE_UPDATE" = "true" ] || [ "$AUTO_UPDATE" = "true" ]; then
         cp -r "$TMP_DIR/.claude/templates"/* "$CLAUDE_DIR/templates/" 2>/dev/null || true
         echo "  Updated templates/"
     else
         cp -rn "$TMP_DIR/.claude/templates" "$CLAUDE_DIR/" 2>/dev/null || true
+        echo "  Installed templates/"
     fi
 }
 
 # Copy root files
 echo "Copying documentation..."
-if [ "$FORCE_UPDATE" = "true" ]; then
+if [ "$FORCE_UPDATE" = "true" ] || [ "$AUTO_UPDATE" = "true" ]; then
     [ -f "$TMP_DIR/CLAUDE.md" ] && cp "$TMP_DIR/CLAUDE.md" . && echo "  Updated CLAUDE.md"
     [ -f "$TMP_DIR/AGENT_RULES.md" ] && cp "$TMP_DIR/AGENT_RULES.md" . && echo "  Updated AGENT_RULES.md"
     [ -f "$TMP_DIR/CODING_STANDARDS.md" ] && cp "$TMP_DIR/CODING_STANDARDS.md" . && echo "  Updated CODING_STANDARDS.md"
@@ -110,7 +131,7 @@ else
 fi
 
 # Copy settings template (preserve user's API token)
-if [ "$FORCE_UPDATE" = "true" ]; then
+if [ "$FORCE_UPDATE" = "true" ] || [ "$AUTO_UPDATE" = "true" ]; then
     if [ -f "$CLAUDE_DIR/settings.local.json" ]; then
         echo "  Preserved settings.local.json (user config)"
     elif [ -f "$TMP_DIR/.claude/settings.example.json" ]; then
@@ -125,7 +146,7 @@ else
 fi
 
 # Copy MCP servers template (preserve user's MCP config)
-if [ "$FORCE_UPDATE" = "true" ]; then
+if [ "$FORCE_UPDATE" = "true" ] || [ "$AUTO_UPDATE" = "true" ]; then
     if [ -f "$CLAUDE_DIR/mcp-servers.local.json" ]; then
         echo "  Preserved mcp-servers.local.json (user config)"
     elif [ -f "$TMP_DIR/.claude/mcp-servers.example.json" ]; then
@@ -140,7 +161,7 @@ else
 fi
 
 # Copy .gitignore
-if [ "$FORCE_UPDATE" = "true" ]; then
+if [ "$FORCE_UPDATE" = "true" ] || [ "$AUTO_UPDATE" = "true" ]; then
     if [ -f "$TMP_DIR/.claude/.gitignore" ]; then
         cp "$TMP_DIR/.claude/.gitignore" "$CLAUDE_DIR/.gitignore"
         echo "Updated .claude/.gitignore"
@@ -153,7 +174,7 @@ else
 fi
 
 # Copy .mcp.json to project root
-if [ "$FORCE_UPDATE" = "true" ]; then
+if [ "$FORCE_UPDATE" = "true" ] || [ "$AUTO_UPDATE" = "true" ]; then
     if [ -f "$TMP_DIR/.mcp.json" ]; then
         cp "$TMP_DIR/.mcp.json" ".mcp.json"
         echo "Updated .mcp.json"
@@ -185,8 +206,8 @@ echo "  ./CODING_STANDARDS.md"
 echo ""
 echo "Next steps:"
 echo "1. Run: claude"
-echo "2. Try: /agent-team \"Build REST API for user authentication\""
+echo "2. Try: /agent-team \"Build REST API\""
 echo ""
-echo "Update options:"
-echo "  FORCE_UPDATE=true  - Update all system files (preserve user configs)"
-echo "  DRY_RUN=true       - Preview changes without applying"
+echo "Options:"
+echo "  FORCE_UPDATE=true  - Force update all system files"
+echo "  DRY_RUN=true       - Preview without applying"
