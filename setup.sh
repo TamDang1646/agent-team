@@ -1,10 +1,11 @@
 #!/bin/bash
 # One-command install Agent Team System from GitHub
-# Run this in your project directory:
+# Usage:
 #   curl -sL https://raw.githubusercontent.com/TamDang1646/agent-team/main/setup.sh | bash
+#   ./setup.sh (from repo)
 #
 # Options:
-#   FORCE_UPDATE=true  - Overwrite existing files (including settings.local.json)
+#   FORCE_UPDATE=true  - Update existing files (preserve user configs)
 #   DRY_RUN=true       - Show what would be done without making changes
 
 set -e
@@ -17,7 +18,7 @@ DRY_RUN="${DRY_RUN:-false}"
 
 echo "=== Installing Agent Team System ==="
 echo "Repo: $REPO@$BRANCH"
-[ "$FORCE_UPDATE" = "true" ] && echo "Mode: FORCE UPDATE (will overwrite existing files)"
+[ "$FORCE_UPDATE" = "true" ] && echo "Mode: FORCE UPDATE (update system files, preserve configs)"
 [ "$DRY_RUN" = "true" ] && echo "Mode: DRY RUN (no changes will be made)"
 
 # Create .claude directory
