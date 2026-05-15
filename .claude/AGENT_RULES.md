@@ -38,7 +38,9 @@ Rules for agents working with the Agent Team orchestration system.
   - `backend-engineer` - for APIs
   - `frontend-engineer` - for UI
   - `qa-engineer` - for testing
-  - `devops-security` - for security concerns
+  - `devops-security` - for security
+  - `code-reviewer` - for static analysis
+  - `test-runner` - for test execution
 
 ### Level 3 Tasks
 - Full agent team + multiple subagents
@@ -55,7 +57,7 @@ Rules for agents working with the Agent Team orchestration system.
 |----------|-------------|
 | `code-explorer` | Need to find files, trace code, understand structure |
 | `planner` | Complex refactor, migration, multi-phase work |
-| `code-reviewer` | After writing code, before merge |
+| `code-reviewer` | Static analysis, lint, type check |
 | `test-runner` | Run test suite, check coverage |
 | `log-analyst` | Debug production errors, analyze stack traces |
 | `security-reviewer` | Auth code, user input, secrets, endpoints |
@@ -77,7 +79,7 @@ Rules for agents working with the Agent Team orchestration system.
 All agents MUST verify:
 
 - [ ] **Requirements met** - Did we solve the actual problem?
-- [ ] **Code quality** - Follows project patterns?
+- [ ] **Code review passed** - Syntax, types, lint all clean?
 - [ ] **Tests pass** - No regressions introduced?
 - [ ] **Security** - No obvious vulnerabilities?
 - [ ] **Documentation** - Updated if needed?
@@ -105,6 +107,20 @@ All agents MUST verify:
 - [ ] Test coverage >= 80%
 - [ ] Critical paths tested
 - [ ] Flaky tests identified
+
+**code-reviewer:**
+- [ ] No syntax errors
+- [ ] All imports resolve
+- [ ] Type checks pass
+- [ ] No linting violations
+- [ ] No unused variables/imports
+- [ ] No debug statements remain
+
+**test-runner:**
+- [ ] Unit tests pass
+- [ ] Integration tests pass
+- [ ] Build succeeds
+- [ ] No regressions
 
 **devops-security:**
 - [ ] Secrets not hardcoded

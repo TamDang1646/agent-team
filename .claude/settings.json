@@ -9,7 +9,9 @@
     "mobile-engineer",
     "unity-engineer",
     "qa-engineer",
-    "devops-security"
+    "devops-security",
+    "code-reviewer",
+    "test-runner"
   ],
   "enabled_subagents": [
     "code-explorer",

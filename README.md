@@ -5,7 +5,7 @@ Multi-agent orchestration system for software engineering workflows. Auto-classi
 ## Features
 
 - **4 Routing Levels**: Auto-classify tasks (simple fix → complex migration)
-- **8 Agents**: orchestrator, architect, backend/frontend/unity/mobile, qa, devops-security
+- **10 Agents**: orchestrator, architect, backend/frontend/unity/mobile, qa, devops-security, code-reviewer, test-runner
 - **10 Subagents**: code-explorer, planner, code-reviewer, test-runner, log-analyst, security-reviewer, performance-analyst, db-reviewer, doc-writer, integration-checker
 - **Coding Standards**: TypeScript, Python, C#, Unity, SQL
 - **Quality Gates**: Enforced before delivery
@@ -59,7 +59,7 @@ DRY_RUN=true curl -sL https://raw.githubusercontent.com/TamDang1646/agent-team/m
 
 ```
 .claude/
-├── agents/              # 8 agents
+├── agents/              # 10 agents
 ├── subagents/           # 10 subagents
 ├── skills/
 │   └── agent-team/
