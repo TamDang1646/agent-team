@@ -15,7 +15,7 @@ Multi-agent orchestration system for software engineering workflows. Auto-classi
 ### One-Command Install (Recommended)
 
 ```bash
-curl -sL https://raw.githubusercontent.com/TamDang1646/agent-team/main/.claude/setup.sh | bash
+curl -sL https://raw.githubusercontent.com/TamDang1646/agent-team/main/setup.sh | bash
 ```
 
 That's it! Script will:
@@ -42,17 +42,17 @@ claude
 
 **Safe update (preserves your config):**
 ```bash
-curl -sL https://raw.githubusercontent.com/TamDang1646/agent-team/main/.claude/setup.sh | bash
+curl -sL https://raw.githubusercontent.com/TamDang1646/agent-team/main/setup.sh | bash
 ```
 
 **Force update (overwrites everything including settings.local.json):**
 ```bash
-FORCE_UPDATE=true curl -sL https://raw.githubusercontent.com/TamDang1646/agent-team/main/.claude/setup.sh | bash
+FORCE_UPDATE=true curl -sL https://raw.githubusercontent.com/TamDang1646/agent-team/main/setup.sh | bash
 ```
 
 **Preview before updating:**
 ```bash
-DRY_RUN=true curl -sL https://raw.githubusercontent.com/TamDang1646/agent-team/main/.claude/setup.sh | bash
+DRY_RUN=true curl -sL https://raw.githubusercontent.com/TamDang1646/agent-team/main/setup.sh | bash
 ```
 
 ## Architecture
