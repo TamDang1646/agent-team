@@ -122,7 +122,7 @@ if [ "$FORCE_UPDATE" = "true" ] || [ "$AUTO_UPDATE" = "true" ]; then
     [ -f "$TMP_DIR/CLAUDE.md" ] && cp "$TMP_DIR/CLAUDE.md" . && echo "  Updated CLAUDE.md"
     [ -f "$TMP_DIR/AGENT_RULES.md" ] && cp "$TMP_DIR/AGENT_RULES.md" . && echo "  Updated AGENT_RULES.md"
     [ -f "$TMP_DIR/CODING_STANDARDS.md" ] && cp "$TMP_DIR/CODING_STANDARDS.md" . && echo "  Updated CODING_STANDARDS.md"
-    [ -f "$TMP_DIR/README.md" ] && cp "$TMP_DIR/README.md" . && echo "  Updated README.md"
+    [ -f "$TMP_DIR/README.md" ] && [ ! -f "README.md" ] && cp "$TMP_DIR/README.md" . && echo "  Created README.md"
 else
     [ ! -f "CLAUDE.md" ] && [ -f "$TMP_DIR/CLAUDE.md" ] && cp "$TMP_DIR/CLAUDE.md" . && echo "  CLAUDE.md"
     [ ! -f "AGENT_RULES.md" ] && [ -f "$TMP_DIR/AGENT_RULES.md" ] && cp "$TMP_DIR/AGENT_RULES.md" . && echo "  AGENT_RULES.md"
