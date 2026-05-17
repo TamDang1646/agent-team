@@ -151,10 +151,10 @@ if [ -f "$TMP_DIR/.claude/.gitignore" ]; then
     echo "Updated .claude/.gitignore"
 fi
 
-# Copy .mcp.json to project root (always update from repo)
-if [ -f "$TMP_DIR/.mcp.json" ]; then
+# Copy .mcp.json to project root (only if not exists - preserve user config)
+if [ ! -f ".mcp.json" ] && [ -f "$TMP_DIR/.mcp.json" ]; then
     cp "$TMP_DIR/.mcp.json" ".mcp.json"
-    echo "Updated .mcp.json"
+    echo "Created .mcp.json"
 fi
 
 echo ""
