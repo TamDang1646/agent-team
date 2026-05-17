@@ -7,6 +7,7 @@ Multi-agent orchestration system for software engineering workflows. Auto-classi
 - **4 Routing Levels**: Auto-classify tasks (simple fix → complex migration)
 - **10 Agents**: orchestrator, architect, backend/frontend/unity/mobile, qa, devops-security, code-reviewer, test-runner
 - **10 Subagents**: code-explorer, planner, code-reviewer, test-runner, log-analyst, security-reviewer, performance-analyst, db-reviewer, doc-writer, integration-checker
+- **Rules**: behavioral-guidelines.md
 - **Coding Standards**: TypeScript, Python, C#, Unity, SQL
 - **Quality Gates**: Enforced before delivery
 
@@ -66,6 +67,7 @@ DRY_RUN=true curl -sL https://raw.githubusercontent.com/TamDang1646/agent-team/m
 ├── core/
 ├── project/
 ├── templates/
+├── rules/               # Behavioral guidelines
 ├── settings.local.json  # Your config with API token
 ├── mcp-servers.local.json # MCP servers config
 └── .gitignore
@@ -105,3 +107,4 @@ CODING_STANDARDS.md      # Code quality standards
 - [AGENT_RULES.md](.claude/AGENT_RULES.md) - Agent workflow rules
 - [CODING_STANDARDS.md](.claude/CODING_STANDARDS.md) - Code quality standards
 - [INSTALL.md](.claude/INSTALL.md) - Detailed installation
+- [rules/](.claude/rules/) - Behavioral guidelines for all agents

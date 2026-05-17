@@ -116,6 +116,18 @@ echo "Installing templates/..."
     fi
 }
 
+# Copy rules
+echo "Installing rules..."
+[ -d "$TMP_DIR/.claude/rules" ] && {
+    if [ "$FORCE_UPDATE" = "true" ] || [ "$AUTO_UPDATE" = "true" ]; then
+        cp -r "$TMP_DIR/.claude/rules"/* "$CLAUDE_DIR/rules/" 2>/dev/null || true
+        echo "  Updated rules/"
+    else
+        cp -rn "$TMP_DIR/.claude/rules" "$CLAUDE_DIR/" 2>/dev/null || true
+        echo "  Installed rules/"
+    fi
+}
+
 # Copy root files
 echo "Copying documentation..."
 if [ "$FORCE_UPDATE" = "true" ] || [ "$AUTO_UPDATE" = "true" ]; then
@@ -196,6 +208,7 @@ echo "  $CLAUDE_DIR/skills/            ($(ls -1 $CLAUDE_DIR/skills 2>/dev/null |
 echo "  $CLAUDE_DIR/core/              ($(ls -1 $CLAUDE_DIR/core 2>/dev/null | wc -l | tr -d ' ') files)"
 echo "  $CLAUDE_DIR/project/           ($(ls -1 $CLAUDE_DIR/project 2>/dev/null | wc -l | tr -d ' ') files)"
 echo "  $CLAUDE_DIR/templates/         ($(ls -1 $CLAUDE_DIR/templates 2>/dev/null | wc -l | tr -d ' ') files)"
+echo "  $CLAUDE_DIR/rules/             ($(ls -1 $CLAUDE_DIR/rules 2>/dev/null | wc -l | tr -d ' ') files)"
 echo "  $CLAUDE_DIR/settings.local.json (user config)"
 [ -f "$CLAUDE_DIR/mcp-servers.local.json" ] && echo "  $CLAUDE_DIR/mcp-servers.local.json (user config)"
 [ -f "$CLAUDE_DIR/.gitignore" ] && echo "  $CLAUDE_DIR/.gitignore"
