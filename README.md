@@ -7,8 +7,9 @@ Multi-agent orchestration system for software engineering workflows. Auto-classi
 - **4 Routing Levels**: Auto-classify tasks (simple fix → complex migration)
 - **10 Agents**: orchestrator, architect, backend/frontend/unity/mobile, qa, devops-security, code-reviewer, test-runner
 - **10 Subagents**: code-explorer, planner, code-reviewer, test-runner, log-analyst, security-reviewer, performance-analyst, db-reviewer, doc-writer, integration-checker
-- **Rules**: behavioral-guidelines.md
-- **Coding Standards**: TypeScript, Python, C#, Unity, SQL
+- **Rules**: behavioral-guidelines.md, dart/, flutter/
+- **Coding Standards**: TypeScript, Python, C#, Unity, Dart, Flutter, SQL
+- **Skills**: dart, flutter, dart-flutter-build-errors
 - **Quality Gates**: Enforced before delivery
 
 ## Installation
@@ -63,11 +64,17 @@ DRY_RUN=true curl -sL https://raw.githubusercontent.com/TamDang1646/agent-team/m
 ├── agents/              # 10 agents
 ├── subagents/           # 10 subagents
 ├── skills/
-│   └── agent-team/
+│   ├── agent-team/
+│   ├── dart/
+│   ├── flutter/
+│   └── dart-flutter-build-errors/
 ├── core/
 ├── project/
 ├── templates/
-├── rules/               # Behavioral guidelines
+├── rules/
+│   ├── behavioral-guidelines.md
+│   ├── dart/
+│   └── flutter/
 ├── settings.local.json  # Your config with API token
 ├── mcp-servers.local.json # MCP servers config
 └── .gitignore
@@ -108,3 +115,5 @@ CODING_STANDARDS.md      # Code quality standards
 - [CODING_STANDARDS.md](.claude/CODING_STANDARDS.md) - Code quality standards
 - [INSTALL.md](.claude/INSTALL.md) - Detailed installation
 - [rules/](.claude/rules/) - Behavioral guidelines for all agents
+- [rules/dart/](.claude/rules/dart/) - Dart language rules
+- [rules/flutter/](.claude/rules/flutter/) - Flutter UI framework rules
