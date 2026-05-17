@@ -52,80 +52,52 @@ git clone --branch "$BRANCH" --depth 1 "$REPO" "$TMP_DIR" 2>&1 | head -5 || {
 # Copy all required directories into .claude/
 echo "Installing agents..."
 [ -d "$TMP_DIR/.claude/agents" ] && {
-    if [ "$FORCE_UPDATE" = "true" ] || [ "$AUTO_UPDATE" = "true" ]; then
-        cp -r "$TMP_DIR/.claude/agents"/* "$CLAUDE_DIR/agents/" 2>/dev/null || true
-        echo "  Updated agents/"
-    else
-        cp -rn "$TMP_DIR/.claude/agents" "$CLAUDE_DIR/" 2>/dev/null || true
-        echo "  Installed agents/"
-    fi
+    mkdir -p "$CLAUDE_DIR/agents"
+    cp -r "$TMP_DIR/.claude/agents"/* "$CLAUDE_DIR/agents/" 2>/dev/null || true
+    [ "$AUTO_UPDATE" = "true" ] && echo "  Updated agents/" || echo "  Installed agents/"
 }
 
 echo "Installing subagents..."
 [ -d "$TMP_DIR/.claude/subagents" ] && {
-    if [ "$FORCE_UPDATE" = "true" ] || [ "$AUTO_UPDATE" = "true" ]; then
-        cp -r "$TMP_DIR/.claude/subagents"/* "$CLAUDE_DIR/subagents/" 2>/dev/null || true
-        echo "  Updated subagents/"
-    else
-        cp -rn "$TMP_DIR/.claude/subagents" "$CLAUDE_DIR/" 2>/dev/null || true
-        echo "  Installed subagents/"
-    fi
+    mkdir -p "$CLAUDE_DIR/subagents"
+    cp -r "$TMP_DIR/.claude/subagents"/* "$CLAUDE_DIR/subagents/" 2>/dev/null || true
+    [ "$AUTO_UPDATE" = "true" ] && echo "  Updated subagents/" || echo "  Installed subagents/"
 }
 
 echo "Installing skills..."
 [ -d "$TMP_DIR/.claude/skills" ] && {
-    if [ "$FORCE_UPDATE" = "true" ] || [ "$AUTO_UPDATE" = "true" ]; then
-        cp -r "$TMP_DIR/.claude/skills"/* "$CLAUDE_DIR/skills/" 2>/dev/null || true
-        echo "  Updated skills/"
-    else
-        cp -rn "$TMP_DIR/.claude/skills" "$CLAUDE_DIR/" 2>/dev/null || true
-        echo "  Installed skills/"
-    fi
+    mkdir -p "$CLAUDE_DIR/skills"
+    cp -r "$TMP_DIR/.claude/skills"/* "$CLAUDE_DIR/skills/" 2>/dev/null || true
+    [ "$AUTO_UPDATE" = "true" ] && echo "  Updated skills/" || echo "  Installed skills/"
 }
 
 echo "Installing core/..."
 [ -d "$TMP_DIR/.claude/core" ] && {
-    if [ "$FORCE_UPDATE" = "true" ] || [ "$AUTO_UPDATE" = "true" ]; then
-        cp -r "$TMP_DIR/.claude/core"/* "$CLAUDE_DIR/core/" 2>/dev/null || true
-        echo "  Updated core/"
-    else
-        cp -rn "$TMP_DIR/.claude/core" "$CLAUDE_DIR/" 2>/dev/null || true
-        echo "  Installed core/"
-    fi
+    mkdir -p "$CLAUDE_DIR/core"
+    cp -r "$TMP_DIR/.claude/core"/* "$CLAUDE_DIR/core/" 2>/dev/null || true
+    [ "$AUTO_UPDATE" = "true" ] && echo "  Updated core/" || echo "  Installed core/"
 }
 
 echo "Installing project/..."
 [ -d "$TMP_DIR/.claude/project" ] && {
-    if [ "$FORCE_UPDATE" = "true" ] || [ "$AUTO_UPDATE" = "true" ]; then
-        cp -r "$TMP_DIR/.claude/project"/* "$CLAUDE_DIR/project/" 2>/dev/null || true
-        echo "  Updated project/"
-    else
-        cp -rn "$TMP_DIR/.claude/project" "$CLAUDE_DIR/" 2>/dev/null || true
-        echo "  Installed project/"
-    fi
+    mkdir -p "$CLAUDE_DIR/project"
+    cp -r "$TMP_DIR/.claude/project"/* "$CLAUDE_DIR/project/" 2>/dev/null || true
+    [ "$AUTO_UPDATE" = "true" ] && echo "  Updated project/" || echo "  Installed project/"
 }
 
 echo "Installing templates/..."
 [ -d "$TMP_DIR/.claude/templates" ] && {
-    if [ "$FORCE_UPDATE" = "true" ] || [ "$AUTO_UPDATE" = "true" ]; then
-        cp -r "$TMP_DIR/.claude/templates"/* "$CLAUDE_DIR/templates/" 2>/dev/null || true
-        echo "  Updated templates/"
-    else
-        cp -rn "$TMP_DIR/.claude/templates" "$CLAUDE_DIR/" 2>/dev/null || true
-        echo "  Installed templates/"
-    fi
+    mkdir -p "$CLAUDE_DIR/templates"
+    cp -r "$TMP_DIR/.claude/templates"/* "$CLAUDE_DIR/templates/" 2>/dev/null || true
+    [ "$AUTO_UPDATE" = "true" ] && echo "  Updated templates/" || echo "  Installed templates/"
 }
 
 # Copy rules
 echo "Installing rules..."
 [ -d "$TMP_DIR/.claude/rules" ] && {
-    if [ "$FORCE_UPDATE" = "true" ] || [ "$AUTO_UPDATE" = "true" ]; then
-        cp -r "$TMP_DIR/.claude/rules"/* "$CLAUDE_DIR/rules/" 2>/dev/null || true
-        echo "  Updated rules/"
-    else
-        cp -rn "$TMP_DIR/.claude/rules" "$CLAUDE_DIR/" 2>/dev/null || true
-        echo "  Installed rules/"
-    fi
+    mkdir -p "$CLAUDE_DIR/rules"
+    cp -r "$TMP_DIR/.claude/rules"/* "$CLAUDE_DIR/rules/" 2>/dev/null || true
+    [ "$AUTO_UPDATE" = "true" ] && echo "  Updated rules/" || echo "  Installed rules/"
 }
 
 # Copy root files
