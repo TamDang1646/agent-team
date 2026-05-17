@@ -52,51 +52,58 @@ git clone --branch "$BRANCH" --depth 1 "$REPO" "$TMP_DIR" 2>&1 | head -5 || {
 # Copy all required directories into .claude/
 echo "Installing agents..."
 [ -d "$TMP_DIR/.claude/agents" ] && {
+    [ -d "$CLAUDE_DIR/agents" ] && rm -rf "$CLAUDE_DIR/agents"
     mkdir -p "$CLAUDE_DIR/agents"
-    cp -r "$TMP_DIR/.claude/agents"/* "$CLAUDE_DIR/agents/" 2>/dev/null || true
+    cp -r "$TMP_DIR/.claude/agents/"* "$CLAUDE_DIR/agents/" 2>/dev/null || true
     [ "$AUTO_UPDATE" = "true" ] && echo "  Updated agents/" || echo "  Installed agents/"
 }
 
 echo "Installing subagents..."
 [ -d "$TMP_DIR/.claude/subagents" ] && {
+    [ -d "$CLAUDE_DIR/subagents" ] && rm -rf "$CLAUDE_DIR/subagents"
     mkdir -p "$CLAUDE_DIR/subagents"
-    cp -r "$TMP_DIR/.claude/subagents"/* "$CLAUDE_DIR/subagents/" 2>/dev/null || true
+    cp -r "$TMP_DIR/.claude/subagents/"* "$CLAUDE_DIR/subagents/" 2>/dev/null || true
     [ "$AUTO_UPDATE" = "true" ] && echo "  Updated subagents/" || echo "  Installed subagents/"
 }
 
 echo "Installing skills..."
 [ -d "$TMP_DIR/.claude/skills" ] && {
+    [ -d "$CLAUDE_DIR/skills" ] && rm -rf "$CLAUDE_DIR/skills"
     mkdir -p "$CLAUDE_DIR/skills"
-    cp -r "$TMP_DIR/.claude/skills"/* "$CLAUDE_DIR/skills/" 2>/dev/null || true
+    cp -r "$TMP_DIR/.claude/skills/"* "$CLAUDE_DIR/skills/" 2>/dev/null || true
     [ "$AUTO_UPDATE" = "true" ] && echo "  Updated skills/" || echo "  Installed skills/"
 }
 
 echo "Installing core/..."
 [ -d "$TMP_DIR/.claude/core" ] && {
+    [ -d "$CLAUDE_DIR/core" ] && rm -rf "$CLAUDE_DIR/core"
     mkdir -p "$CLAUDE_DIR/core"
-    cp -r "$TMP_DIR/.claude/core"/* "$CLAUDE_DIR/core/" 2>/dev/null || true
+    cp -r "$TMP_DIR/.claude/core/"* "$CLAUDE_DIR/core/" 2>/dev/null || true
     [ "$AUTO_UPDATE" = "true" ] && echo "  Updated core/" || echo "  Installed core/"
 }
 
 echo "Installing project/..."
 [ -d "$TMP_DIR/.claude/project" ] && {
+    [ -d "$CLAUDE_DIR/project" ] && rm -rf "$CLAUDE_DIR/project"
     mkdir -p "$CLAUDE_DIR/project"
-    cp -r "$TMP_DIR/.claude/project"/* "$CLAUDE_DIR/project/" 2>/dev/null || true
+    cp -r "$TMP_DIR/.claude/project/"* "$CLAUDE_DIR/project/" 2>/dev/null || true
     [ "$AUTO_UPDATE" = "true" ] && echo "  Updated project/" || echo "  Installed project/"
 }
 
 echo "Installing templates/..."
 [ -d "$TMP_DIR/.claude/templates" ] && {
+    [ -d "$CLAUDE_DIR/templates" ] && rm -rf "$CLAUDE_DIR/templates"
     mkdir -p "$CLAUDE_DIR/templates"
-    cp -r "$TMP_DIR/.claude/templates"/* "$CLAUDE_DIR/templates/" 2>/dev/null || true
+    cp -r "$TMP_DIR/.claude/templates/"* "$CLAUDE_DIR/templates/" 2>/dev/null || true
     [ "$AUTO_UPDATE" = "true" ] && echo "  Updated templates/" || echo "  Installed templates/"
 }
 
 # Copy rules
 echo "Installing rules..."
 [ -d "$TMP_DIR/.claude/rules" ] && {
+    [ -d "$CLAUDE_DIR/rules" ] && rm -rf "$CLAUDE_DIR/rules"
     mkdir -p "$CLAUDE_DIR/rules"
-    cp -r "$TMP_DIR/.claude/rules"/* "$CLAUDE_DIR/rules/" 2>/dev/null || true
+    cp -r "$TMP_DIR/.claude/rules/"* "$CLAUDE_DIR/rules/" 2>/dev/null || true
     [ "$AUTO_UPDATE" = "true" ] && echo "  Updated rules/" || echo "  Installed rules/"
 }
 
@@ -115,59 +122,39 @@ else
 fi
 
 # Copy settings template (preserve user's API token)
-if [ "$FORCE_UPDATE" = "true" ] || [ "$AUTO_UPDATE" = "true" ]; then
-    if [ -f "$CLAUDE_DIR/settings.local.json" ]; then
-        echo "  Preserved settings.local.json (user config)"
-    elif [ -f "$TMP_DIR/.claude/settings.example.json" ]; then
-        cp "$TMP_DIR/.claude/settings.example.json" "$CLAUDE_DIR/settings.local.json"
-        echo "  Created settings.local.json from template"
-    fi
-else
-    if [ ! -f "$CLAUDE_DIR/settings.local.json" ] && [ -f "$TMP_DIR/.claude/settings.example.json" ]; then
-        cp "$TMP_DIR/.claude/settings.example.json" "$CLAUDE_DIR/settings.local.json"
-        echo "  Created settings.local.json from template"
-    fi
+# NEVER overwrite settings.local.json - user config must be preserved
+if [ -f "$CLAUDE_DIR/settings.local.json" ]; then
+    echo "  Preserved settings.local.json (user config)"
+elif [ -f "$TMP_DIR/.claude/settings.local.json" ]; then
+    cp "$TMP_DIR/.claude/settings.local.json" "$CLAUDE_DIR/settings.local.json"
+    echo "  Created settings.local.json from template"
+elif [ -f "$TMP_DIR/.claude/settings.example.json" ]; then
+    cp "$TMP_DIR/.claude/settings.example.json" "$CLAUDE_DIR/settings.local.json"
+    echo "  Created settings.local.json from template"
 fi
 
 # Copy MCP servers template (preserve user's MCP config)
-if [ "$FORCE_UPDATE" = "true" ] || [ "$AUTO_UPDATE" = "true" ]; then
-    if [ -f "$CLAUDE_DIR/mcp-servers.local.json" ]; then
-        echo "  Preserved mcp-servers.local.json (user config)"
-    elif [ -f "$TMP_DIR/.claude/mcp-servers.example.json" ]; then
-        cp "$TMP_DIR/.claude/mcp-servers.example.json" "$CLAUDE_DIR/mcp-servers.local.json"
-        echo "  Created mcp-servers.local.json from template"
-    fi
-else
-    if [ ! -f "$CLAUDE_DIR/mcp-servers.local.json" ] && [ -f "$TMP_DIR/.claude/mcp-servers.example.json" ]; then
-        cp "$TMP_DIR/.claude/mcp-servers.example.json" "$CLAUDE_DIR/mcp-servers.local.json"
-        echo "  Created mcp-servers.local.json from template"
-    fi
+# NEVER overwrite mcp-servers.local.json - user config must be preserved
+if [ -f "$CLAUDE_DIR/mcp-servers.local.json" ]; then
+    echo "  Preserved mcp-servers.local.json (user config)"
+elif [ -f "$TMP_DIR/.claude/mcp-servers.local.json" ]; then
+    cp "$TMP_DIR/.claude/mcp-servers.local.json" "$CLAUDE_DIR/mcp-servers.local.json"
+    echo "  Created mcp-servers.local.json from template"
+elif [ -f "$TMP_DIR/.claude/mcp-servers.example.json" ]; then
+    cp "$TMP_DIR/.claude/mcp-servers.example.json" "$CLAUDE_DIR/mcp-servers.local.json"
+    echo "  Created mcp-servers.local.json from template"
 fi
 
-# Copy .gitignore
-if [ "$FORCE_UPDATE" = "true" ] || [ "$AUTO_UPDATE" = "true" ]; then
-    if [ -f "$TMP_DIR/.claude/.gitignore" ]; then
-        cp "$TMP_DIR/.claude/.gitignore" "$CLAUDE_DIR/.gitignore"
-        echo "Updated .claude/.gitignore"
-    fi
-else
-    if [ ! -f "$CLAUDE_DIR/.gitignore" ] && [ -f "$TMP_DIR/.claude/.gitignore" ]; then
-        cp "$TMP_DIR/.claude/.gitignore" "$CLAUDE_DIR/.gitignore"
-        echo "Created .claude/.gitignore"
-    fi
+# Copy .gitignore (always update from repo)
+if [ -f "$TMP_DIR/.claude/.gitignore" ]; then
+    cp "$TMP_DIR/.claude/.gitignore" "$CLAUDE_DIR/.gitignore"
+    echo "Updated .claude/.gitignore"
 fi
 
-# Copy .mcp.json to project root
-if [ "$FORCE_UPDATE" = "true" ] || [ "$AUTO_UPDATE" = "true" ]; then
-    if [ -f "$TMP_DIR/.mcp.json" ]; then
-        cp "$TMP_DIR/.mcp.json" ".mcp.json"
-        echo "Updated .mcp.json"
-    fi
-else
-    if [ ! -f ".mcp.json" ] && [ -f "$TMP_DIR/.mcp.json" ]; then
-        cp "$TMP_DIR/.mcp.json" ".mcp.json"
-        echo "Created .mcp.json"
-    fi
+# Copy .mcp.json to project root (always update from repo)
+if [ -f "$TMP_DIR/.mcp.json" ]; then
+    cp "$TMP_DIR/.mcp.json" ".mcp.json"
+    echo "Updated .mcp.json"
 fi
 
 echo ""
